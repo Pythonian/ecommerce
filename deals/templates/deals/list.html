@@ -1,0 +1,28 @@
+{% extends "catalog.html" %}
+
+{% load catalog_tags %}
+
+{% block content %}
+
+<h3>Deals</h3>
+
+{% for deal in deals %}
+    <div class="product_thumbnail">
+        <a href="{{ deal.product.get_absolute_url }}">
+            <img src="{{ deal.product.image.url }}" alt="{{ product.name }}" class="bn"  width="80px" height="100px" />
+            <br />
+            {{ deal.title }}
+        </a>
+        {% if deal.expiry_date %}
+            <br>
+            Expires: {{ deal.expiry_date|timeuntil }} from now
+        {% endif %}
+        {% if deal.quantity %}
+            <br>
+            Remains: {{ deal.quantity }} item
+        {% endif %}
+    </div>
+{% endfor %}
+
+{% endblock %}
+
