@@ -27,7 +27,7 @@
 			{% if cart_items %}
 			<tr>
 				<th class="right" colspan="6">
-					<form method="POST" action=".">
+					<form method="POST" action=".">{% csrf_token %}
     					<input type="hidden" name="submit" value="Checkout" />
     					<!-- input type="image" name="Google Checkout" alt="Fast checkout through Google"
         src="http://sandbox.google.com/checkout/buttons/checkout.gif?merchant_id={{ merchant_id }}
@@ -50,7 +50,7 @@
 					</td>
 					<td>{{ item.price|currency }}</td>
 					<td class="right">
-						<form method="post" action="." class="cart">
+						<form method="post" action="." class="cart">{% csrf_token %}
 							<label for="quantity">Quantity:</label>
 							<input type="text" name="quantity" value="{{ item.quantity }}" id="quantity" size="2" class="quantity" maxlength="5" />
 							<input type="hidden" name="item_id" value="{{ item.id }}" />
@@ -60,7 +60,7 @@
 						</form>
 					</td>
 					<td>
-						<form method="post" action="." class="cart">
+						<form method="post" action="." class="cart">{% csrf_token %}
 							<input type="hidden" name="item_id" value="{{ item.id }}" />
 							<input type="submit" name="submit" value="Remove"/>
 						</form>

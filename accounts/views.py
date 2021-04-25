@@ -1,14 +1,11 @@
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-from django.template import RequestContext
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.core import urlresolvers
+from django.urls import reverse
 from django.http import HttpResponseRedirect
 
-from ecomstore.checkout.models import Order, OrderItem
-from ecomstore.accounts.forms import UserProfileForm, RegistrationForm
-from ecomstore.accounts import profile
+from checkout.models import Order, OrderItem
+from accounts.forms import UserProfileForm, RegistrationForm
+from accounts import profile
 
 
 def register(request):
@@ -82,7 +79,7 @@ def order_info(request, template_name="registration/order_info.html"):
         # form = UserProfileForm(request.POST, instance=request.user)
         if form.is_valid():
             profile.set(request)
-            url = urlresolvers.reverse('my_account')
+            url = reverse('my_account')
             return HttpResponseRedirect(url)
     else:
         user_profile = profile.retrieve(request)

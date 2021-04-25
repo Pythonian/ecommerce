@@ -8,15 +8,14 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('cart/', include('cart.urls')),
     path('checkout/', include('checkout.urls')),
-    path('deals/', include('deals.urls')),
+    # path('deals/', include('deals.urls')),
     path('search/', include('search.urls')),
     path('', include('catalog.urls')),
     path('', include('marketing.urls')),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-handler404 = 'ecomstore.views.file_not_found_404'
-#handler500 = 'ecomstore.views.server_error_500'
+    urlpatterns += static(settings.STATIC_URL,
+                          document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

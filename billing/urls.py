@@ -1,5 +1,7 @@
-from django.conf.urls.defaults import *
+from django.urls import path
+from .views import add_card
 
-urlpatterns = patterns('ecomstore.billing.views',
-    (r'^add_card/$', 'add_card'),
-)
+
+urlpatterns = [
+    path('add_card/', add_card, name='add_card'),
+]

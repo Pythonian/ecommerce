@@ -32,7 +32,7 @@
 		Price: <span property="v:price">{{ p.price|currency }}</span>
 	{% endif %}
 	<br /><br />
-	<form method="post" action="." class="cart">
+	<form method="post" action="." class="cart">{% csrf_token %}
 		{{ form.as_p }}
 		<br />
 		<input type="submit" value="Add To Cart" name="submit" alt="Add To Cart" />
@@ -67,7 +67,7 @@
 	 		<input type="submit" value="Tag It" id="add_tag" />
 	 		
 	 	{% else %}
-	 		<a href="{% url login %}?next={{ request.path }}">
+	 		<a href="{% url 'login' %}?next={{ request.path }}">
 				Log in to tag this product.
 			</a>
 	 	{% endif %}
@@ -87,7 +87,7 @@
 		</table>
 	</div>
 		{% else %}
-			<a href="{% url login %}?next={{ request.path }}">
+			<a href="{% url 'login' %}?next={{ request.path }}">
 				Log in to write your own review.
 			</a>
 		{% endif %}

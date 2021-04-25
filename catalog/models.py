@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 import tagging
 
 from django.db.models.signals import post_save, post_delete
-from ecomstore.caching.caching import cache_update, cache_evict
+from caching.caching import cache_update, cache_evict
 
 
 class ActiveCategoryManager(models.Manager):
@@ -50,7 +50,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('category', kwargs={'slug': self.slug})
+        return reverse('category', kwargs={'category_slug': self.slug})
 
     @property
     def cache_key(self):
@@ -130,7 +130,7 @@ class Product(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('product_slug', kwargs={'product_slug': self.slug})
+        return reverse('catalog_product', kwargs={'product_slug': self.slug})
 
     @property
     def sale_price(self):
@@ -146,7 +146,7 @@ class Product(models.Model):
         """
         # The OrderItem model is dependent on the Product model,
         # so to avoid circular import, we import the models here.
-        from ecomstore.checkout.models import Order, OrderItem
+        from checkout.models import Order, OrderItem
         # Look up past orders that includes the product we want to evaluate
         orders = Order.objects.filter(orderitem__product=self)
         # Look up other order items that were in the same orders
@@ -167,7 +167,7 @@ class Product(models.Model):
         instance was purchased
 
         """
-        from ecomstore.checkout.models import OrderItem
+        from checkout.models import OrderItem
         from django.contrib.auth.models import User
         # Get the list of users who have purchased the current
         # product being evaluated
@@ -188,7 +188,7 @@ class Product(models.Model):
         been ordered by registered customers
 
         """
-        from ecomstore.checkout.models import Order, OrderItem
+        from checkout.models import Order, OrderItem
         from django.db.models import Q
         # Get the list of orders that contains the evaluated product
         orders = Order.objects.filter(orderitem__product=self)
@@ -208,10 +208,10 @@ class Product(models.Model):
         return self.get_absolute_url()
 
 
-try:
-    tagging.register(Product)
-except tagging.AlreadyRegistered:
-    pass
+# try:
+#     tagging.register(Product)
+# except tagging.AlreadyRegistered:
+#     pass
 
 
 class ActiveProductReviewManager(models.Manager):

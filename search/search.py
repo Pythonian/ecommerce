@@ -19,7 +19,7 @@ def store(request, q):
         # Store a tracking id with each search
         term.tracking_id = stats.tracking_id(request)
         term.user = None
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             term.user = request.user
         term.save()
 

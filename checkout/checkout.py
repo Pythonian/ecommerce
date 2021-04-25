@@ -1,12 +1,11 @@
-from ecomstore.checkout import google_checkout
-from ecomstore.cart import cart
-from ecomstore.checkout.models import Order, OrderItem
-from ecomstore.checkout.forms import CheckoutForm
-from ecomstore.checkout import authnet
-from ecomstore import settings
+# from checkout import google_checkout
+from cart import cart
+from checkout.models import Order, OrderItem
+from checkout.forms import CheckoutForm
+from checkout import authnet
 
 from django.urls import reverse
-import urllib
+
 
 def get_checkout_url(request):
     """ returns the URL from the checkout module for cart """
@@ -15,6 +14,7 @@ def get_checkout_url(request):
 
     # use this for our own-site checkout
     return reverse('checkout')
+
 
 def process(request):
     """ takes a POST request containing valid order data; pings the payment gateway with the billing
@@ -30,11 +30,11 @@ def process(request):
     HELD_FOR_REVIEW = '4'
 
     postdata = request.POST.copy()
-    card_num = postdata.get('credit_card_number','')
-    exp_month = postdata.get('credit_card_expire_month','')
-    exp_year = postdata.get('credit_card_expire_year','')
+    card_num = postdata.get('credit_card_number', '')
+    exp_month = postdata.get('credit_card_expire_month', '')
+    exp_year = postdata.get('credit_card_expire_year', '')
     exp_date = exp_month + exp_year
-    cvv = postdata.get('credit_card_cvv','')
+    cvv = postdata.get('credit_card_cvv', '')
     amount = cart.cart_subtotal(request)
 
     results = {}
@@ -48,10 +48,13 @@ def process(request):
         order = create_order(request, transaction_id)
         results = {'order_number': order.id, 'message': u''}
     if response[0] == DECLINED:
-        results = {'order_number': 0, 'message': u'There is a problem with your credit card.'}
+        results = {'order_number': 0,
+                   'message': u'There is a problem with your credit card.'}
     if response[0] == ERROR or response[0] == HELD_FOR_REVIEW:
-        results = {'order_number': 0, 'message': u'Error processing your order.'}
+        results = {'order_number': 0,
+                   'message': u'Error processing your order.'}
     return results
+
 
 def create_order(request, transaction_id):
     """ if the POST to the payment gateway successfully billed the customer, create a new order
@@ -88,7 +91,7 @@ def create_order(request, transaction_id):
 
         # save profile info for future orders
         if request.user.is_authenticated():
-            from ecomstore.accounts import profile
+            from accounts import profile
             profile.set(request)
 
     return order

@@ -1,16 +1,37 @@
 # Django settings for ecomstore project.
-import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = []
 
-ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
-)
-
 SECRET_KEY = '(-(73dveotti(1rkovdzwtj$f&ag7tk(%&)@s*15bla*rj+h^s'
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
+    'django.contrib.sitemaps',
+    'django.contrib.staticfiles',
+    'django.contrib.redirects',
+
+    'catalog',
+    'cart',
+    'accounts',
+    'search',
+    'checkout',
+    'utils',
+    'stats',
+    'caching',
+    'tagging',
+    'billing',
+]
 
 WSGI_APPLICATION = 'ecomstore.wsgi.application'
 
@@ -19,20 +40,16 @@ SITE_NAME = 'Modern Musician'
 META_KEYWORDS = 'Music, instruments, sheet music, musician'
 META_DESCRIPTION = 'Modern Musician is an online supplier of instruments, sheet music, and other accessories for musicians'
 
-CURRENT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 # Upon deployment, change to True
 ENABLE_SSL = False
 
 # Uncomment the following line after you have installed memcached on your local development machine
 #CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
 
-MANAGERS = ADMINS
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(CURRENT_PATH, 'ecomstore.db'),
+        'NAME': BASE_DIR / 'ecomstore.db',
     }
 }
 
@@ -65,17 +82,17 @@ STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    BASE_DIR / 'static',
 ]
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(CURRENT_PATH, 'static')
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = '/static/'
+MEDIA_URL = '/media/'
 
 
 MIDDLEWARE = [
@@ -87,8 +104,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-    'marketing.urlcanon.URLCanonicalizationMiddleware',
-    'ecomstore.SSLMiddleware.SSLRedirect',
+    # 'marketing.urlcanon.URLCanonicalizationMiddleware',
+    # 'ecomstore.SSLMiddleware.SSLRedirect',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 ]
 
@@ -100,7 +117,7 @@ ROOT_URLCONF = 'ecomstore.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(CURRENT_PATH, 'templates')],
+        'DIRS': [(BASE_DIR / 'templates'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,30 +146,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.sites',
-    'django.contrib.flatpages',
-    'django.contrib.sitemaps',
-    'django.contrib.staticfiles',
-    'django.contrib.redirects',
 
-    'catalog',
-    'cart',
-    'accounts',
-    'search',
-    'checkout',
-    'utils',
-    'stats',
-    'caching',
-    'djangodblog',
-    'tagging',
-    'billing',
-)
 # for use with URL Canonicalization Middleware:
 # this is the canonical hostname to be used by your app (required)
 CANON_URL_HOST = 'www.your-domain.com'
@@ -163,7 +157,8 @@ CANON_URLS_TO_REWRITE = ['your-domain.com', 'other-domain.com']
 # Google Checkout API credentials
 GOOGLE_CHECKOUT_MERCHANT_ID = ''
 GOOGLE_CHECKOUT_MERCHANT_KEY = ''
-GOOGLE_CHECKOUT_URL = 'https://sandbox.google.com/checkout/api/checkout/v2/merchantCheckout/Merchant/' + GOOGLE_CHECKOUT_MERCHANT_ID
+GOOGLE_CHECKOUT_URL = 'https://sandbox.google.com/checkout/api/checkout/v2/merchantCheckout/Merchant/' + \
+    GOOGLE_CHECKOUT_MERCHANT_ID
 
 # Authorize.Net API Credentials
 AUTHNET_POST_URL = 'test.authorize.net'
@@ -184,3 +179,5 @@ LOGOUT_REDIRECT_URL = 'catalog_home'
 # AUTH_PROFILE_MODULE = 'accounts.userprofile'
 
 CACHE_TIMEOUT = 60 * 60
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

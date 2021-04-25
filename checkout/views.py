@@ -10,6 +10,7 @@ def show_checkout(request):
     """ checkout form page to collect user shipping and billing information """
     if cart.is_empty(request):
         return redirect('show_cart')
+    error_message = ''
     if request.method == 'POST':
         postdata = request.POST.copy()
         form = CheckoutForm(postdata)

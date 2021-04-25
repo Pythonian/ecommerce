@@ -1,5 +1,5 @@
-from ecomstore.cart.models import CartItem
-from ecomstore.catalog.models import Product
+from cart.models import CartItem
+from catalog.models import Product
 from ecomstore import settings
 
 from django.shortcuts import get_object_or_404

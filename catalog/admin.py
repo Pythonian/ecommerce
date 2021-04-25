@@ -1,13 +1,14 @@
 from django.contrib import admin
-from ecomstore.catalog.models import Product, Category, ProductReview
-from ecomstore.catalog.forms import ProductAdminForm
+from catalog.models import Product, Category, ProductReview
+from catalog.forms import ProductAdminForm
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     form = ProductAdminForm
     # sets values for how the admin site lists your products
-    list_display = ('name', 'price', 'old_price', 'quantity', 'is_active', 'updated_at',)
+    list_display = ('name', 'price', 'old_price',
+                    'quantity', 'is_active', 'updated_at',)
     # which of the fields in 'list_display' tuple link to admin product page
     list_filter = ['is_active']
     list_editable = ['price', 'quantity', 'is_active']

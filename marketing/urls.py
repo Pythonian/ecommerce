@@ -1,16 +1,16 @@
-from django.conf.urls import url
+from django.urls import path
 from marketing.sitemaps import SITEMAPS
 from marketing import views
 from django.contrib.sitemaps.views import sitemap
 
 
 urlpatterns = [
-    url(r'^robots\.txt$',
-        views.robots),
-    url(r'^google_base\.xml$',
-        views.google_base),
+    path('robots.txt/',
+         views.robots),
+    path('google_base.xml/',
+         views.google_base),
 ]
 
 urlpatterns += [
-    url(r'^sitemap\.xml$', sitemap, {'sitemaps': SITEMAPS }),
+    path('sitemap.xml/', sitemap, {'sitemaps': SITEMAPS}),
 ]

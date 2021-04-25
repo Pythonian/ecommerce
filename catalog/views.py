@@ -1,9 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from catalog.models import Category, Product, ProductReview
 from catalog.forms import ProductAddToCartForm, ProductReviewForm
-from django.template import RequestContext
-
-from django.core import urlresolvers
+from django.urls import reverse
 from cart import cart
 from django.http import HttpResponseRedirect, HttpResponse
 
@@ -33,7 +31,7 @@ def index(request):
     return render(request, template_name, locals())
 
 
-def show_category(request, category_slug, template_name="catalog/category.html"):
+def show_category(request, category_slug):
     """ view for each individual category page """
     category_cache_key = request.path
     c = cache.get(category_cache_key)
@@ -48,19 +46,19 @@ def show_category(request, category_slug, template_name="catalog/category.html")
     from django.db import connection
     queries = connection.queries
 
-    template_name = 'catalog/category.html'
+    template = 'catalog/category.html'
     context = {
-        'category': category,
+        'category': c,
         'products': products,
         'page_title': page_title,
         'meta_keywords': meta_keywords,
         'meta_description': meta_description
     }
 
-    return render_to_response(template_name, locals(), context_instance=RequestContext(request))
+    return render(request, template, context)
 
 
-def show_product(request, product_slug, template_name="catalog/product.html"):
+def show_product(request, product_slug):
     """ view for each product page """
     product_cache_key = request.path
     # try to get product from cache
@@ -86,7 +84,7 @@ def show_product(request, product_slug, template_name="catalog/product.html"):
             # if test cookie worked, get rid of it
             if request.session.test_cookie_worked():
                 request.session.delete_test_cookie()
-            url = urlresolvers.reverse('show_cart')
+            url = reverse('show_cart')
             return HttpResponseRedirect(url)
     else:
         # create the unbound form. Notice the request as a keyword argument
@@ -103,7 +101,7 @@ def show_product(request, product_slug, template_name="catalog/product.html"):
     review_form = ProductReviewForm()
     context = {
         'categories': categories,
-        'product': product,
+        'p': p,
         'page_title': page_title,
         'meta_keywords': meta_keywords,
         'meta_description': meta_description,
@@ -111,7 +109,8 @@ def show_product(request, product_slug, template_name="catalog/product.html"):
         'product_reviews': product_reviews,
         'review_form': review_form
     }
-    return render(request, template_name, context)
+    template = 'catalog/product.html'
+    return render(request, template, context)
 
 
 def tag_cloud(request, template_name="catalog/tag_cloud.html"):

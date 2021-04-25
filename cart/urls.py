@@ -1,9 +1,7 @@
-from django.conf.urls import url
-from . import views
+from django.urls import path
+from .views import show_cart
 
 
 urlpatterns = [
-    url(r'^$',
-        views.show_cart,
-        name='show_cart'),
+    path('', show_cart, name='show_cart'),
 ]
