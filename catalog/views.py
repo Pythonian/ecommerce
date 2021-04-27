@@ -43,9 +43,6 @@ def show_category(request, category_slug):
     meta_keywords = c.meta_keywords
     meta_description = c.meta_description
 
-    from django.db import connection
-    queries = connection.queries
-
     template = 'catalog/category.html'
     context = {
         'category': c,
@@ -190,9 +187,9 @@ def add_tag(request):
             Tag.objects.add_tag(p, tag)
         for tag in p.tags:
             html += render_to_string(template, {'tag': tag})
-        response = simplejson.dumps({'success': 'True', 'html': html})
+        response = json.dumps({'success': 'True', 'html': html})
     else:
-        response = simplejson.dumps({'success': 'False'})
+        response = json.dumps({'success': 'False'})
     return HttpResponse(response,
                         content_type='application/javascript; charset=utf-8')
 

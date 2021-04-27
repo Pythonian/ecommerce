@@ -31,14 +31,6 @@ Other Requirements
 
 Installation of the Django E-Commerce store requires the following additional applications to be installed:
 
-Django-Tagging
-URL: http://code.google.com/p/django-tagging/
-Instructions: After downloading the project files above, put the 'tagging' directory onto your system's PYTHONPATH
-
-Django DB Log
-URL: http://github.com/dcramer/django-db-log
-Instructions: Put the 'djangodblog' directory onto your system's PYTHONPATH
-
 Google Keyczar
 URL: http://code.google.com/p/keyczar/
 Instructions: Make sure to download the Python version of the keyczar library.
@@ -50,5 +42,3 @@ Instructions: Install per the documentation for your operating system. After doi
 CACHE_BACKEND value in settings.py.
 
 Before using, be sure to generate a long random string of characters for the SECRET_KEY value in settings.py.
-
-For questions or comments about this project contact Jim at: jim@django-ecommerce.com.

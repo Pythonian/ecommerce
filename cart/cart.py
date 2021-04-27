@@ -42,7 +42,8 @@ def get_cart_items(request):
 
 
 def add_to_cart(request):
-    """ function that takes a POST request and adds a product instance to the current customer's shopping cart """
+    """ function that takes a POST request and adds a product instance
+    to the current customer's shopping cart """
     # Create a copy of the data that came in via POST
     postdata = request.POST.copy()
     # Get product slug from post data, return blank if empty
@@ -76,7 +77,8 @@ def get_single_item(request, item_id):
 
 
 def update_cart(request):
-    """ function takes a POST request that updates the quantity for single product instance in the
+    """ function takes a POST request that updates the quantity for
+    single product instance in the
     current customer's shopping cart
 
     """
@@ -95,8 +97,8 @@ def update_cart(request):
 
 
 def remove_from_cart(request):
-    """ function that takes a POST request removes a single product instance from the current customer's
-    shopping cart
+    """ function that takes a POST request removes a single product
+    instance from the current customer's shopping cart
     """
     postdata = request.POST.copy()
     item_id = postdata['item_id']
@@ -137,7 +139,8 @@ def remove_old_cart_items():
 
     """
     print("Removing old carts")
-    remove_before = datetime.now() + timedelta(days=-settings.SESSION_COOKIE_DAYS)
+    remove_before = datetime.now() + timedelta(
+        days=-settings.SESSION_COOKIE_DAYS)
     cart_ids = []
     old_items = CartItem.objects.values('cart_id').annotate(last_change=Max(
         'date_added')).filter(last_change__lt=remove_before).order_by()

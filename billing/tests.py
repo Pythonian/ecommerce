@@ -1,5 +1,6 @@
-from django.test import TestCase, Client
-from ecomstore.billing.passkey import encrypt, decrypt
+from django.test import TestCase
+from billing.passkey import encrypt, decrypt
+
 
 class EncryptionTestCase(TestCase):
     def test_encrypt_decrypt(self):

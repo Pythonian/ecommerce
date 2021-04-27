@@ -1,9 +1,10 @@
-from django.shortcuts import render, get_object_or_404, reverse
+from django.shortcuts import render, reverse
 from cart import cart
 
 
 def show_cart(request):
-    """ view function for the page displaying the customer shopping cart, and allows for the updating of quantities
+    """ view function for the page displaying the customer shopping cart,
+    and allows for the updating of quantities
     and removal product instances
 
     """

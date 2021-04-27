@@ -35,8 +35,9 @@ def register(request):
 
 
 @login_required
-def my_account(request, template_name="registration/my_account.html"):
-    """ page displaying customer account information, past order list and account options """
+def my_account(request):
+    """ page displaying customer account information,
+    past order list and account options """
     page_title = 'My Account'
     orders = Order.objects.filter(user=request.user)
     name = request.user.username
@@ -51,8 +52,9 @@ def my_account(request, template_name="registration/my_account.html"):
 
 
 @login_required
-def order_details(request, order_id, template_name="registration/order_details.html"):
-    """ displays the details of a past customer order; order details can only be loaded by the same
+def order_details(request, order_id):
+    """ displays the details of a past customer order;
+    order details can only be loaded by the same
     user to whom the order instance belongs.
 
     """
@@ -70,9 +72,11 @@ def order_details(request, order_id, template_name="registration/order_details.h
 
 
 @login_required
-def order_info(request, template_name="registration/order_info.html"):
-    """ page containing a form that allows a customer to edit their billing and shipping information that
-    will be displayed in the order form next time they are logged in and go to check out """
+def order_info(request):
+    """ page containing a form that allows a customer to edit
+    their billing and shipping information that
+    will be displayed in the order form next time they are
+    logged in and go to check out """
     if request.method == 'POST':
         postdata = request.POST.copy()
         form = UserProfileForm(postdata)

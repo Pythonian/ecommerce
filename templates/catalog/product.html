@@ -33,7 +33,12 @@
 	{% endif %}
 	<br /><br />
 	<form method="post" action="." class="cart">{% csrf_token %}
-		{{ form.as_p }}
+		{# form.as_p #}
+		<p>
+			<label for="id_quantity">Quantity:</label> 
+			<input type="text" name="quantity" size="2" value="1" class="quantity" maxlength="5" required id="id_quantity">
+			<input type="hidden" name="product_slug" value="{{ p.slug }}" id="id_product_slug">
+		</p>
 		<br />
 		<input type="submit" value="Add To Cart" name="submit" alt="Add To Cart" />
 	</form>
@@ -61,11 +66,13 @@
 	 	</div>
 	 	<br />
 	 	{% if request.user.is_authenticated %}
+	 	<form method="post" action=".">{% csrf_token %}
 	 		<label for="id_tag">Tag this product (must be at least three characters):</label>
 	 		<br />
 	 		<input id="id_tag" type="text" />
+	 		<input type="hidden" name="product_slug" value="{{ p.slug }}" id="id_slug">
 	 		<input type="submit" value="Tag It" id="add_tag" />
-	 		
+	 	</form>
 	 	{% else %}
 	 		<a href="{% url 'login' %}?next={{ request.path }}">
 				Log in to tag this product.
@@ -75,17 +82,19 @@
 	<h3>Product Reviews</h3>
 		{% if request.user.is_authenticated %}
 		<a id="add_review">Write a Review</a>
-	<div id="review_form">
-		<div id="review_errors"></div>
-		<table>
-		{{ review_form.as_table }}
-		<tr><td colspan="2">
-			<input type="hidden" id="id_slug" value="{{ p.slug }}" />
-			<input type="submit" id="submit_review" value="Submit" />
-			<input type="submit" id="cancel_review" value="Cancel" />
-		</td></tr>
-		</table>
-	</div>
+		<form method="post" action=".">{% csrf_token %}
+			<div id="review_form">
+				<div id="review_errors"></div>
+				<table>
+				{{ review_form.as_table }}
+				<tr><td colspan="2">
+					<input type="hidden" id="id_slug" value="{{ p.slug }}" />
+					<input type="submit" id="submit_review" value="Submit" />
+					<input type="submit" id="cancel_review" value="Cancel" />
+				</td></tr>
+				</table>
+			</div>
+		</form>
 		{% else %}
 			<a href="{% url 'login' %}?next={{ request.path }}">
 				Log in to write your own review.
