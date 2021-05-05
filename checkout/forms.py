@@ -15,7 +15,8 @@ def cc_expire_years():
 
 
 def cc_expire_months():
-    """ list of tuples containing months of the year for use in credit card form.
+    """
+    list of tuples containing months of the year for use in credit card form.
     [('01','January'), ('02','February'), ... ]
 
     """
@@ -23,12 +24,14 @@ def cc_expire_months():
     months = []
     # Gets the 12 months in a year via a loop
     for month in range(1, 13):
-        # Prepends a 0 to the front of the ordinal value for each month to create a two-digit string. E.g: 01, 02
+        # Prepends a 0 to the front of the ordinal value for each month
+        # to create a two-digit string. E.g: 01, 02
         if len(str(month)) == 1:
             numeric = '0' + str(month)
         else:
             numeric = str(month)
-        # Creates a list of tuples to containa two-digit strings and the name of the month.
+        # Creates a list of tuples to containa two-digit strings
+        # and the name of the month.
         months.append((numeric, datetime.date(2009, month, 1).strftime('%B')))
     return months
 
@@ -41,7 +44,9 @@ CARD_TYPES = (('Mastercard', 'Mastercard'),
 
 
 def strip_non_numbers(data):
-    """ gets rid of all non-number characters and returns the numbers as strings."""
+    """
+    gets rid of all non-number characters and returns the numbers as strings.
+    """
     non_numbers = re.compile(r'\D')
     # Finds all non-numeric digits and replaces them with an empty string
     return non_numbers.sub('', data)
@@ -66,13 +71,14 @@ def cardLuhnChecksumIsValid(card_number):
 
 
 class CheckoutForm(forms.ModelForm):
-    """ checkout form class to collect user billing and shipping information for placing an order """
+    """ checkout form class to collect user billing and
+    shipping information for placing an order """
 
     def __init__(self, *args, **kwargs):
         super(CheckoutForm, self).__init__(*args, **kwargs)
         # override default attributes
         for field in self.fields:
-            # Loop through all the fields and give each an explicit size attribute.
+            # Loop through all the fields and give each an explicit size.
             self.fields[field].widget.attrs['size'] = '30'
 
         # Evaluate other fields and give them a custom size
@@ -115,5 +121,5 @@ class CheckoutForm(forms.ModelForm):
         stripped_phone = strip_non_numbers(phone)
         if len(stripped_phone) < 10:
             raise forms.ValidationError(
-                'Enter a valid phone number with area code.(e.g. 555-555-5555)')
+                'Enter a valid phone number with area code.')
         return self.cleaned_data['phone']

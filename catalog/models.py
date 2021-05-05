@@ -3,7 +3,9 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 from django.db.models.signals import post_save, post_delete
-from caching.caching import cache_update, cache_evict
+from ecomstore.caching import cache_update, cache_evict
+
+from tagging.registry import register
 
 
 class ActiveCategoryManager(models.Manager):
@@ -72,9 +74,6 @@ class FeaturedProductManager(models.Manager):
         return super().all().filter(is_active=True).filter(is_featured=True)
 
 
-from tagging.registry import register
-
-
 class Product(models.Model):
     """ model class containing information about a product;
     instances of this class are what the user
@@ -120,8 +119,6 @@ class Product(models.Model):
     image = models.ImageField(upload_to='images/products/main')
     thumbnail = models.ImageField(upload_to='images/products/thumbnails')
     image_caption = models.CharField(max_length=200)
-    # tags = models.ForeignKey(Tag, blank=True, null=True,
-    #                          on_delete=models.CASCADE)
 
     objects = models.Manager()
     active = ActiveProductManager()

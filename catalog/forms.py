@@ -1,10 +1,10 @@
 from django import forms
 from catalog.models import Product, ProductReview
-from tagging.models import Tag
 
 
 class ProductAdminForm(forms.ModelForm):
-    """ ModelForm class to validate product instance data before saving from admin interface """
+    """ ModelForm class to validate product instance data
+    before saving from admin interface """
     class Meta:
         model = Product
         fields = '__all__'
@@ -36,12 +36,14 @@ class ProductAddToCartForm(forms.Form):
     product_slug = forms.CharField(widget=forms.HiddenInput())
 
     def __init__(self, request=None, *args, **kwargs):
-        """ override the default so we can set the request  and check to see if cookies are enabled"""
+        """ override the default so we can set the request
+        and check to see if cookies are enabled"""
         self.request = request
         super().__init__(*args, **kwargs)
 
     def clean(self):
-        """ custom validation to check for presence of cookies in customer's browser """
+        """ custom validation to check for presence of
+        cookies in customer's browser """
         if self.request:
             if not self.request.session.test_cookie_worked():
                 raise forms.ValidationError("Cookies must be enabled.")

@@ -57,10 +57,9 @@ def process(request):
 
 
 def create_order(request, transaction_id):
-    """ if the POST to the payment gateway successfully billed the customer, create a new order
-    containing each CartItem instance, save the order with the transaction ID from the gateway,
-    and empty the shopping cart
-
+    """ if the POST to the payment gateway successfully billed the customer,
+    create a new order containing each CartItem instance, save the order with
+    the transaction ID from the gateway, and empty the shopping cart
     """
     order = Order()
     checkout_form = CheckoutForm(request.POST, instance=order)
@@ -70,7 +69,7 @@ def create_order(request, transaction_id):
     order.ip_address = request.META.get('REMOTE_ADDR')
     order.user = None
     # If a User is authenticated, associate the order to their account
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         order.user = request.user
     order.status = Order.SUBMITTED
     order.save()
@@ -90,7 +89,7 @@ def create_order(request, transaction_id):
         cart.empty_cart(request)
 
         # save profile info for future orders
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             from accounts import profile
             profile.set(request)
 

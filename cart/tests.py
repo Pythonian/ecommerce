@@ -19,8 +19,8 @@ class CartTestCase(TestCase):
         self.product = Product.active.all()[0]
 
     def test_cart_id(self):
-        """ a Cart ID gets set in the customer's session after a page containing
-        the cart box has been requested 
+        """ a Cart ID gets set in the customer's session after a
+        page containing the cart box has been requested
 
         """
         home_url = reverse('catalog_home')
@@ -30,7 +30,9 @@ class CartTestCase(TestCase):
         self.failUnless(self.client.session.get(cart.CART_ID_SESSION_KEY, ''))
 
     def test_add_product(self):
-        """ POST request to a product page augments the CartItem instance count """
+        """
+        POST request to a product page augments the CartItem instance count
+        """
         quantity = 2
         product_url = self.product.get_absolute_url()
         response = self.client.get(product_url)
@@ -44,7 +46,7 @@ class CartTestCase(TestCase):
         # perform the post of adding to the cart
         cookie = self.client.cookies[settings.SESSION_COOKIE_NAME]
         csrf_token = csrf.middleware._make_token(cookie.value)
-        #self.failUnlessEqual(csrf_token, None)
+        # self.failUnlessEqual(csrf_token, None)
         postdata = {'product_slug': self.product.slug,
                     'quantity': quantity,
                     'csrfmiddlewaretoken': csrf_token}
@@ -53,7 +55,8 @@ class CartTestCase(TestCase):
         # assert redirected to cart page - 302 then 200?
         cart_url = reverse('show_cart')
         self.assertRedirects(
-            response, cart_url, status_code=client.FOUND, target_status_code=client.OK)
+            response, cart_url, status_code=client.FOUND,
+            target_status_code=client.OK)
 
         # assert cart item count is incremented by one
         self.assertEqual(self.get_cart_item_count(), cart_item_count + 1)
@@ -76,39 +79,52 @@ class CartTestCase(TestCase):
         return self.client.session.get(cart.CART_ID_SESSION_KEY, '')
 
     def test_add_product_empty_quantity(self):
-        """ POSTing a request with an empty quantity box displays 'required' form error message """
+        """
+        POSTing a request with an empty quantity box displays
+        'required' form error message
+        """
         product_url = self.product.get_absolute_url()
         postdata = {'product_slug': self.product.slug, 'quantity': ''}
         response = self.client.post(product_url, postdata)
-        expected_error = unicode(
-            ProductAddToCartForm.base_fields['quantity'].error_messages['required'])
+        expected_error = str(
+            ProductAddToCartForm.base_fields['quantity'].error_messages[
+                'required'])
         self.assertFormError(response, "form", "quantity", [expected_error])
 
     def test_add_product_zero_quantity(self):
-        """ POSTing a request with an 0 quantity displays 'min_value' form error message """
+        """
+        POSTing a request with an 0 quantity displays 'min_value'
+        form error message
+        """
         product_url = self.product.get_absolute_url()
         postdata = {'product_slug': self.product.slug, 'quantity': 0}
         response = self.client.post(product_url, postdata)
 
         # may need to concatenate the min_value onto error_text containing %s
-        error_text = unicode(
-            ProductAddToCartForm.base_fields['quantity'].error_messages['min_value'])
+        error_text = str(
+            ProductAddToCartForm.base_fields['quantity'].error_messages[
+                'min_value'])
         min_value = ProductAddToCartForm.base_fields['quantity'].min_value
         expected_error = error_text % min_value
 
         self.assertFormError(response, "form", "quantity", [expected_error])
 
     def test_add_product_invalid_quantity(self):
-        """ POSTing a request with a non-integer quantity displays 'invalid' form error message """
+        """
+        POSTing a request with a non-integer quantity displays
+        'invalid' form error message
+        """
         product_url = self.product.get_absolute_url()
         postdata = {'product_slug': self.product.slug, 'quantity': 'bg'}
         response = self.client.post(product_url, postdata)
-        expected_error = unicode(
-            ProductAddToCartForm.base_fields['quantity'].error_messages['invalid'])
+        expected_error = str(
+            ProductAddToCartForm.base_fields['quantity'].error_messages[
+                'invalid'])
         self.assertFormError(response, "form", "quantity", [expected_error])
 
     def test_add_to_cart_fails_csrf(self):
-        """ adding product fails without including the CSRF token to POST request parameters """
+        """ adding product fails without including the CSRF token
+        to POST request parameters """
         quantity = 2
         product_url = self.product.get_absolute_url()
         response = self.client.get(product_url)

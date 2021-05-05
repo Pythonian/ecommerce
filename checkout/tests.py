@@ -5,7 +5,7 @@ from django.urls import reverse
 
 from cart import cart
 from cart.models import CartItem
-from catalog.models import Category, Product
+from catalog.models import Product
 from checkout.forms import CheckoutForm
 
 

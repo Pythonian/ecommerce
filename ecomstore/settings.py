@@ -21,13 +21,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.redirects',
 
+    # 'blog',
     'catalog',
     'cart',
     'accounts',
     'search',
     'checkout',
     'stats',
-    'caching',
     'tagging',
     'billing',
 ]
@@ -48,6 +48,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'ecomstore.context_processors.ecomstore',
+                # 'blog.context_processors.latest_posts',
             ],
         },
     },

@@ -15,13 +15,13 @@ def show_checkout(request):
         postdata = request.POST.copy()
         form = CheckoutForm(postdata)
         if form.is_valid():
-            # If the form is valid, pass along the request to the process checkout
+            # If form is valid, pass along the request to the process checkout
             response = checkout.process(request)
             order_number = response.get('order_number', 0)
             error_message = response.get('message', '')
             if order_number:
-                # If the order number was valid, redirect user to the receipt page.
-                # Store the User's order number in the user's session for later use
+                # If order number was valid, redirect user to the receipt page.
+                # Store User's order number in the user's session for later use
                 request.session['order_number'] = order_number
                 return redirect('checkout_receipt')
         else:
@@ -43,7 +43,10 @@ def show_checkout(request):
 
 
 def receipt(request):
-    """ page displayed with order information after an order has been placed successfully """
+    """
+    page displayed with order information after an order has
+    been placed successfully
+    """
 
     # Retrieve the user's order number from its session
     order_number = request.session.get('order_number', '')
@@ -51,7 +54,7 @@ def receipt(request):
         # If the number exists, retrieve the order information to be displayed
         order = Order.objects.filter(id=order_number)[0]
         order_items = OrderItem.objects.filter(order=order)
-        # Delete's the order number from the user's session since it's no longer needed
+        # Delete's the order number from the user's session
         del request.session['order_number']
     else:
         # Redirect a user with no order number to the cart page

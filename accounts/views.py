@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from django.contrib.auth import authenticate
 
 from checkout.models import Order, OrderItem
 from accounts.forms import UserProfileForm, RegistrationForm

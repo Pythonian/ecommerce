@@ -77,7 +77,9 @@ class Order(BaseOrderInfo):
 
 
 class OrderItem(models.Model):
-    """ model class for storing each Product instance purchased in each order """
+    """
+    model class for storing each Product instance purchased in each order
+    """
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     price = models.DecimalField(max_digits=9, decimal_places=2)
