@@ -1,6 +1,7 @@
-from ecomstore import settings
 # import httplib
 import urllib
+
+from ecomstore import settings
 
 
 def do_auth_capture(amount='0.00', card_num=None, exp_date=None, card_cvv=None):

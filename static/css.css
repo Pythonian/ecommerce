@@ -5,7 +5,9 @@ html,body{background-color:Silver;}
 .fr{float:right;}
 .fl{float:left;}
 .bn{border:none;}
-
+p {
+	margin: 5px 0;
+}
 #main{
 	margin: 0 auto;
 	width:900px;

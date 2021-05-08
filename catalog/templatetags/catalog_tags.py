@@ -1,10 +1,11 @@
 from django import template
 from django.contrib.flatpages.models import FlatPage
-from catalog.models import Category
-from cart import cart
-
 from django.core.cache import cache
+
+from cart import cart
 from ecomstore.settings import CACHE_TIMEOUT
+
+from ..models import Category
 
 register = template.Library()
 

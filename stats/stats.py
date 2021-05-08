@@ -1,9 +1,11 @@
-import os
 import base64
 import json
-from search.models import SearchTerm
+import os
+
 from catalog.models import Product
-from stats.models import ProductView
+from search.models import SearchTerm
+
+from .models import ProductView
 
 PRODUCTS_PER_ROW = 4
 

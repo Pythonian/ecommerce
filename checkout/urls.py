@@ -1,9 +1,9 @@
 from django.urls import path
-from checkout import views
 
+from .views import receipt, show_checkout
 
 urlpatterns = [
-    path('', views.show_checkout, name='checkout'),
+    path('', show_checkout, name='checkout'),
 
-    path('receipt/', views.receipt, name='receipt'),
+    path('receipt/', receipt, name='receipt'),
 ]

@@ -1,6 +1,7 @@
 from django.contrib import admin
-from catalog.models import Product, Category, ProductReview
-from catalog.forms import ProductAdminForm
+
+from .forms import ProductAdminForm
+from .models import Category, Product, ProductReview
 
 
 @admin.register(Product)
@@ -12,7 +13,6 @@ class ProductAdmin(admin.ModelAdmin):
     # which of the fields in 'list_display' tuple link to admin product page
     list_filter = ['is_active']
     list_editable = ['price', 'quantity', 'is_active']
-    list_display_links = ('name',)
     list_per_page = 50
     ordering = ['-created_at']
     search_fields = ['name', 'description',
@@ -25,7 +25,6 @@ class ProductAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     # sets up values for how admin site lists categories
     list_display = ('name', 'created_at', 'updated_at',)
-    list_display_links = ('name',)
     list_per_page = 20
     ordering = ['name']
     search_fields = ['name', 'description',

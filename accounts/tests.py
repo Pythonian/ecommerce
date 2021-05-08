@@ -1,12 +1,12 @@
-from django.test import TestCase, Client
+from http import client
+
 from django.contrib.auth.models import User
+from django.test import Client, TestCase
 from django.urls import reverse
 
 from catalog.models import Product
 from checkout.models import Order
 from ecomstore import settings
-
-from http import client
 
 TEST_USERNAME = "alice"
 TEST_PASSWORD = "test"

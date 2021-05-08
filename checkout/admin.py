@@ -1,5 +1,6 @@
 from django.contrib import admin
-from checkout.models import Order, OrderItem
+
+from .models import Order, OrderItem
 
 
 class OrderItemInline(admin.StackedInline):

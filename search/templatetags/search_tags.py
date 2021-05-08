@@ -1,6 +1,8 @@
-from django import template
-from search.forms import SearchForm
 from urllib.parse import urlencode
+
+from django import template
+
+from ..forms import SearchForm
 
 register = template.Library()
 

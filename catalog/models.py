@@ -1,11 +1,11 @@
-from django.db import models
-from django.urls import reverse
 from django.contrib.auth.models import User
-
-from django.db.models.signals import post_save, post_delete
-from ecomstore.caching import cache_update, cache_evict
+from django.db import models
+from django.db.models.signals import post_delete, post_save
+from django.urls import reverse
 
 from tagging.registry import register
+
+from ecomstore.caching import cache_evict, cache_update
 
 
 class ActiveCategoryManager(models.Manager):
@@ -148,6 +148,7 @@ class Product(models.Model):
         # The OrderItem model is dependent on the Product model,
         # so to avoid circular import, we import the models here.
         from checkout.models import Order, OrderItem
+
         # Look up past orders that includes the product we want to evaluate
         orders = Order.objects.filter(orderitem__product=self)
         # Look up other order items that were in the same orders
@@ -168,8 +169,10 @@ class Product(models.Model):
         instance was purchased
 
         """
-        from checkout.models import OrderItem
         from django.contrib.auth.models import User
+
+        from checkout.models import OrderItem
+
         # Get the list of users who have purchased the current
         # product being evaluated
         users = User.objects.filter(order__orderitem__product=self)
@@ -189,8 +192,10 @@ class Product(models.Model):
         been ordered by registered customers
 
         """
-        from checkout.models import Order, OrderItem
         from django.db.models import Q
+
+        from checkout.models import Order, OrderItem
+
         # Get the list of orders that contains the evaluated product
         orders = Order.objects.filter(orderitem__product=self)
         # Get lists of users that have bought the evaluated product

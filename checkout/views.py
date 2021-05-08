@@ -1,9 +1,11 @@
-from django.shortcuts import render, redirect
-from checkout.forms import CheckoutForm
-from checkout.models import Order, OrderItem
-from checkout import checkout
-from cart import cart
+from django.shortcuts import redirect, render
+
 from accounts import profile
+from cart import cart
+
+from . import checkout
+from .forms import CheckoutForm
+from .models import Order, OrderItem
 
 
 def show_checkout(request):

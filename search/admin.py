@@ -1,5 +1,6 @@
 from django.contrib import admin
-from search.models import SearchTerm
+
+from .models import SearchTerm
 
 
 @admin.register(SearchTerm)

@@ -1,5 +1,6 @@
 from django.core.cache import cache
-from ecomstore.settings import CACHE_TIMEOUT
+
+from .settings import CACHE_TIMEOUT
 
 
 def cache_update(sender, **kwargs):

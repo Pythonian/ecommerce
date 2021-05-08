@@ -1,14 +1,15 @@
-from catalog.models import Product
-from cart.models import CartItem
-from cart import cart
-from catalog.forms import ProductAddToCartForm
-
-from django.test import TestCase, Client
-from django.urls import reverse
-from django.contrib import csrf
-from django.conf import settings
-
 from http import client
+
+from django.conf import settings
+from django.contrib import csrf
+from django.test import Client, TestCase
+from django.urls import reverse
+
+from catalog.forms import ProductAddToCartForm
+from catalog.models import Product
+
+from . import cart
+from .models import CartItem
 
 
 class CartTestCase(TestCase):

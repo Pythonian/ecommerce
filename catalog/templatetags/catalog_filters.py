@@ -1,5 +1,6 @@
-from django import template
 import locale
+
+from django import template
 
 register = template.Library()
 
@@ -17,4 +18,4 @@ register = template.Library()
 # for your operating system
 @register.filter(name='currency')
 def currency(value):
-   return '$' + str(value)
+    return '$' + str(value)

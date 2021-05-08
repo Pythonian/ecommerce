@@ -1,4 +1,5 @@
 from django.db import models
+
 from catalog.models import Product
 
 
@@ -7,12 +8,12 @@ class CartItem(models.Model):
     in the customer's shopping cart """
     cart_id = models.CharField(max_length=50, db_index=True)
     date_added = models.DateTimeField(auto_now_add=True)
-    quantity = models.IntegerField(default=1)
+    quantity = models.PositiveIntegerField(default=1)
     product = models.ForeignKey(
         Product, unique=False, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'cart_items'
+        db_table = 'cart_items'  # remove this
         ordering = ['date_added']
 
     @property

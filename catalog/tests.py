@@ -1,16 +1,16 @@
-from django.test import TestCase, Client
-from django.urls import reverse
-from django.contrib.auth import SESSION_KEY
-from django.contrib.auth.models import User
-from django.views.defaults import page_not_found
-from django.db import IntegrityError
-from django.utils import html
-
-from catalog.models import Category, Product, ProductReview
-from catalog.forms import ProductAddToCartForm
-
 from decimal import Decimal
 from http import client
+
+from django.contrib.auth import SESSION_KEY
+from django.contrib.auth.models import User
+from django.db import IntegrityError
+from django.test import Client, TestCase
+from django.urls import reverse
+from django.utils import html
+from django.views.defaults import page_not_found
+
+from .forms import ProductAddToCartForm
+from .models import Category, Product, ProductReview
 
 
 class NewUserTestCase(TestCase):

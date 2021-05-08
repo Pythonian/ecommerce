@@ -1,13 +1,14 @@
-from cart.models import CartItem
+import decimal
+import random
+from datetime import datetime, timedelta
+
+from django.db.models import Max
+from django.shortcuts import get_object_or_404
+
 from catalog.models import Product
 from ecomstore import settings
 
-from django.shortcuts import get_object_or_404
-from django.db.models import Max
-
-from datetime import datetime, timedelta
-import decimal
-import random
+from .models import CartItem
 
 CART_ID_SESSION_KEY = 'cart_id'
 

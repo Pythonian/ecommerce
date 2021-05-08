@@ -1,5 +1,6 @@
 from django.core.management.base import NoArgsCommand
-from cart import cart
+
+from .. import cart
 
 
 class Command(NoArgsCommand):

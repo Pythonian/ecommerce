@@ -1,33 +1,39 @@
-from django.shortcuts import get_object_or_404, render
-from catalog.models import Category, Product, ProductReview
-from catalog.forms import ProductAddToCartForm, ProductReviewForm
-from django.urls import reverse
-from cart import cart
-from django.http import HttpResponse
-
-from stats import stats
+import json
 
 from django.contrib.auth.decorators import login_required
+from django.core.cache import cache
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
-import json
+from django.urls import reverse
 
 import tagging
 from tagging.models import Tag, TaggedItem
 
-from django.core.cache import cache
+from cart import cart
 from ecomstore.settings import CACHE_TIMEOUT
+from stats import stats
 
-PRODUCTS_PER_ROW = 4
+from .forms import ProductAddToCartForm, ProductReviewForm
+from .models import Category, Product, ProductReview
 
 
 def index(request):
     """ site home page """
     search_recs = stats.recommended_from_search(request)
-    featured = Product.featured.all()[0:PRODUCTS_PER_ROW]
+    featured = Product.featured.all()[0:4]
     recently_viewed = stats.get_recently_viewed(request)
     view_recs = stats.recommended_from_views(request)
-    template_name = 'catalog/index.html'
-    return render(request, template_name, locals())
+
+    template = 'catalog/index.html'
+    context = {
+        'search_recs': search_recs,
+        'featured': featured,
+        'recently_viewed': recently_viewed,
+        'view_recs': view_recs,
+    }
+
+    return render(request, template, context)
 
 
 def show_category(request, category_slug):

@@ -1,17 +1,25 @@
-from django.db import models
 import datetime
-from catalog.models import Product
+
+from django.db import models
 from django.urls import reverse
+
+from catalog.models import Product
 
 
 class FeaturedDealManager(models.Manager):
-    """ Manager class to return only those deals where each instance is featured, and is greater than the expiry date """
+    """ Manager class to return only those deals where each
+    instance is featured, and is greater than the expiry date """
+
     def get_queryset(self):
-        return super(FeaturedDealManager, self).get_queryset().filter(active=True).filter(featured=True).filter(expiry_date__gte=datetime.datetime.now())
+        return super(FeaturedDealManager, self).get_queryset().filter(
+            active=True).filter(featured=True).filter(
+            expiry_date__gte=datetime.datetime.now())
+
 
 class DealManager(models.Manager):
     def all(self):
-        return 
+        return
+
 
 class Deal(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -28,7 +36,6 @@ class Deal(models.Model):
 
     objects = models.Manager()
     featured_deals = FeaturedDealManager()
-    
 
     def __str__(self):
         return self.title
@@ -39,4 +46,3 @@ class Deal(models.Model):
             'month': self.created.strftime("%m"),
             'slug': self.product.slug
         })
-

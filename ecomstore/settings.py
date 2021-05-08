@@ -5,7 +5,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 SECRET_KEY = '(-(73dveotti(1rkovdzwtj$f&ag7tk(%&)@s*15bla*rj+h^s'
 
@@ -21,13 +21,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.redirects',
 
-    # 'blog',
+    'blog',
     'catalog',
     'cart',
     'accounts',
     'search',
     'checkout',
     'stats',
+    'taggit',
     'tagging',
     'billing',
 ]
@@ -154,3 +155,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Django-tagging settings
 FORCE_LOWERCASE_TAGS = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'your_account@gmail.com'
+# EMAIL_HOST_PASSWORD = 'your_password'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True

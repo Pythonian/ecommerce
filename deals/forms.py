@@ -6,5 +6,3 @@
 #     class Meta:
 #         model = Deal
 #         fields = [
-
-#         ]

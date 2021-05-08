@@ -1,4 +1,4 @@
-from ecomstore import settings
+from . import settings
 
 
 def ecomstore(request):

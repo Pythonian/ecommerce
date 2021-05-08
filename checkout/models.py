@@ -1,8 +1,10 @@
-from django.db import models
-from django.conf import settings
-from catalog.models import Product
-from django.urls import reverse
 import decimal
+
+from django.conf import settings
+from django.db import models
+from django.urls import reverse
+
+from catalog.models import Product
 
 User = settings.AUTH_USER_MODEL
 

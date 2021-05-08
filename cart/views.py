@@ -1,5 +1,6 @@
 from django.shortcuts import render, reverse
-from cart import cart
+
+from . import cart
 
 
 def show_cart(request):

@@ -1,7 +1,7 @@
-from django.urls import path
 from django.contrib.auth import views as auth_views
-from accounts.views import (
-    register, order_info, order_details, my_account)
+from django.urls import path
+
+from .views import my_account, order_details, order_info, register
 
 urlpatterns = [
     path('login/', auth_views.LoginView.as_view(), name='login'),

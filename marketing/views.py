@@ -1,8 +1,9 @@
 from django.http import HttpResponse
-from django.template.loader import get_template
 from django.template import Context
-from ecomstore.settings import BASE_DIR
+from django.template.loader import get_template
+
 from catalog.models import Product
+from ecomstore.settings import BASE_DIR
 
 ROBOTS_PATH = BASE_DIR / 'marketing/robots.txt'
 

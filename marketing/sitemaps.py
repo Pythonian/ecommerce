@@ -1,6 +1,7 @@
-from catalog.models import Product, Category
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.sitemaps import Sitemap
+
+from catalog.models import Category, Product
 
 
 class ProductSitemap(Sitemap):

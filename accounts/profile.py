@@ -1,5 +1,5 @@
-from .models import UserProfile
 from .forms import UserProfileForm
+from .models import UserProfile
 
 
 def retrieve(request):

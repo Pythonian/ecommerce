@@ -1,14 +1,13 @@
-from django.urls import path
-from marketing.sitemaps import SITEMAPS
-from marketing import views
 from django.contrib.sitemaps.views import sitemap
+from django.urls import path
 
+from marketing.sitemaps import SITEMAPS
+
+from .views import google_base, robots
 
 urlpatterns = [
-    path('robots.txt/',
-         views.robots),
-    path('google_base.xml/',
-         views.google_base),
+    path('robots.txt/', robots),
+    path('google_base.xml/', google_base),
 ]
 
 urlpatterns += [

@@ -1,5 +1,6 @@
-from search.models import SearchTerm
 from django import forms
+
+from .models import SearchTerm
 
 
 class SearchForm(forms.ModelForm):
