@@ -1,5 +1,6 @@
 from django.core.mail import send_mail
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db.models import Count
 from django.shortcuts import get_object_or_404, render
 
 from taggit.models import Tag
@@ -16,7 +17,7 @@ def post_list(request, tag_slug=None):
         # ilter the list of posts by the ones that contain the given tag
         post_list = post_list.filter(tags__in=[tag])
     # instantiate with the number of posts to be displayed
-    paginator = Paginator(post_list, 1)
+    paginator = Paginator(post_list, 5)
     # GET the page which indicates the current page
     page = request.GET.get('page')
     try:
@@ -58,12 +59,24 @@ def post_detail(request, year, month, day, slug):
     else:
         comment_form = CommentForm()
 
+    # List of similar posts
+    # Get the ids of the tags of the current post
+    post_tags_ids = post.tags.values_list('id', flat=True)
+    # get all posts that contains these tags, exclude current post
+    similar_posts = Post.published.filter(tags__in=post_tags_ids)\
+                                  .exclude(id=post.id)
+    # count the number of tags shared by each posts;
+    # order the result by the number of shared tags & recent posts first
+    similar_posts = similar_posts.annotate(same_tags=Count('tags'))\
+                                 .order_by('-same_tags', '-publish')[:4]
+
     template = 'blog/post/detail.html'
     context = {
         'post': post,
         'comment_form': comment_form,
         'comments': comments,
         'new_comment': new_comment,
+        'similar_posts': similar_posts,
     }
 
     return render(request, template, context)

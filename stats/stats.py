@@ -37,7 +37,7 @@ def recommended_from_search(request):
     for word in common_words:
         results = search.products(word).get('products', [])
         for r in results:
-            if len(matching) < PRODUCTS_PER_ROW and not r in matching:
+            if len(matching) < PRODUCTS_PER_ROW and r not in matching:
                 matching.append(r)
     return matching
 

@@ -1,0 +1,10 @@
+<h3>Latest Posts</h3>
+<ul id="categories">
+
+{% for post in latest_posts %}
+	<li>
+		<a href="{{ post.get_absolute_url }}">{{ post.title }}</a><br />
+	</li>
+{% endfor %}
+
+</ul>

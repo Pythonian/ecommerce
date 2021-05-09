@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'django.contrib.staticfiles',
     'django.contrib.redirects',
+    'django.contrib.postgres',
 
     'blog',
     'catalog',
@@ -67,6 +68,15 @@ DATABASES = {
         'NAME': BASE_DIR / 'ecomstore.db',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'blog',
+#         'USER': 'blog',
+#         'PASSWORD': '*****',
+#     }
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -1,4 +1,5 @@
 {% extends "catalog.html" %}
+{% load blog_tags %}
 
 {% block title %}My Blog{% endblock %}
 
@@ -11,22 +12,24 @@
 	
 	{% for post in posts %}
 	
-	<h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+		<h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
 
-	<p class="tags">
-		 Tags:
-		 {% for tag in post.tags.all %}
-		 	<a href="{% url 'blog:post_list_by_tag' tag.slug %}">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}
-		 {% endfor %}
-	</p>
+		<p class="tags">
+			 Tags:
+			 {% for tag in post.tags.all %}
+			 	<a href="{% url 'blog:post_list_by_tag' tag.slug %}">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}
+			 {% endfor %}
+		</p>
 
-	<p class="date">Published {{ post.publish }} by {{ post.author }}</p>
-	
-	{{ post.body|truncatewords:30|linebreaks }}
+		<p class="date">Published {{ post.publish }} by {{ post.author }}</p>
+		
+		{{ post.body|markdown|truncatewords_html:30 }}
+
+		<hr>
 
 	{% empty %}
 
-	<p>There are no blog posts yet.</p>
+		<p>There are no blog posts yet.</p>
 	
 	{% endfor %}
 
