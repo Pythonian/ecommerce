@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, reverse
 
 from . import cart
@@ -18,7 +19,7 @@ def show_cart(request):
         if postdata['submit'] == 'Checkout':
             # checkout_url = checkout.get_checkout_url(request)
             # return HttpResponseRedirect(checkout_url)
-            return reverse('checkout')
+            return HttpResponseRedirect(reverse('checkout'))
     cart_items = cart.get_cart_items(request)
     page_title = 'Shopping Cart'
     cart_subtotal = cart.cart_subtotal(request)

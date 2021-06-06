@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>Add Card</h1>
-    <form method="post" action="{{ request.path }}">
+    <form method="post" action="{{ request.path }}">{% csrf_token %}
     <table>
     {{ form.as_table }}
     </table>

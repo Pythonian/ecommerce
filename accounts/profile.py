@@ -7,7 +7,7 @@ def retrieve(request):
     creates one if it does not exist """
     try:
         # Get the profile of the currently authenticated user
-        profile = request.user.get_profile()
+        profile = UserProfile()
     except UserProfile.DoesNotExist:
         # If the User has not been created, create and save the
         # profile instance for the user

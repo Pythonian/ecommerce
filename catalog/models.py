@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+# from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models.signals import post_delete, post_save
 from django.urls import reverse
@@ -234,16 +235,22 @@ class ProductReview(models.Model):
         (2, 2),
         (1, 1),
     )
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        Product, related_name='reviews', on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     date = models.DateTimeField(auto_now_add=True)
     rating = models.PositiveSmallIntegerField(default=5, choices=RATINGS)
+    # rating = models.IntegerField(
+    #     validators=[MinValueValidator(1), MaxValueValidator(5)])
     is_approved = models.BooleanField(default=True)
-    content = models.TextField()
+    content = models.TextField(blank=True)
 
     objects = models.Manager()
     approved = ActiveProductReviewManager()
+
+    class Meta:
+        ordering = ['-date']
 
 
 # attach signals to Product and Category model classes

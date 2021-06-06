@@ -2,7 +2,7 @@ import json
 
 from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -86,7 +86,7 @@ def show_product(request, product_slug):
             # if test cookie worked, get rid of it
             if request.session.test_cookie_worked():
                 request.session.delete_test_cookie()
-            return reverse('show_cart')
+            return HttpResponseRedirect(reverse('show_cart'))
     else:
         # create the unbound form. Notice the request as a keyword argument
         form = ProductAddToCartForm(request=request, label_suffix=':')

@@ -10,7 +10,7 @@ class SearchForm(forms.ModelForm):
         fields = ['q']
 
     def __init__(self, *args, **kwargs):
-        super(SearchForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         default_text = 'Search'
         self.fields['q'].widget.attrs['value'] = default_text
         self.fields['q'].widget.attrs['onfocus'] = "if (this.value=='" + \
