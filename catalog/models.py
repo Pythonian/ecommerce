@@ -4,8 +4,6 @@ from django.db import models
 from django.db.models.signals import post_delete, post_save
 from django.urls import reverse
 
-from tagging.registry import register
-
 from ecomstore.caching import cache_evict, cache_update
 
 
@@ -213,10 +211,6 @@ class Product(models.Model):
     @property
     def cache_key(self):
         return self.get_absolute_url()
-
-
-# Register model to be tagged
-register(Product)
 
 
 class ActiveProductReviewManager(models.Manager):

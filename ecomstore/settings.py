@@ -20,9 +20,8 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'django.contrib.staticfiles',
     'django.contrib.redirects',
-    'django.contrib.postgres',
+    #'django.contrib.postgres',
 
-    'blog',
     'catalog',
     'cart',
     'accounts',
@@ -30,7 +29,7 @@ INSTALLED_APPS = [
     'checkout',
     'stats',
     'taggit',
-    'tagging',
+    #'tagging',
     'billing',
 ]
 

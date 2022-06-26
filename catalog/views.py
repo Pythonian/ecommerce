@@ -211,35 +211,3 @@ def product_list(request):
     }
 
     return render(request, template_name, context)
-
-
-# def variation_list(request, product_slug):
-#     """ a list of all variations for a product instance. """
-#     # Get the product
-#     product = get_object_or_404(Product, slug=product_slug)
-#     # Get all variations assoicated wih the product
-#     variations = Variation.objects.filter(product=product)
-#     # Returns only objects for a particular instance.
-#     formset = VariationFormSet(queryset=variations)
-
-#     if request.method == 'POST':
-#         formset = VariationFormSet(request.POST)
-#         if formset.is_valid():
-#             formset.save(commit=False)
-#             for form in formset:
-#                 new_variation = form.save(commit=False)
-#                 if new_variation.title:
-#                     product = get_object_or_404(Product, slug=product_slug)
-#                     new_variation.product = product
-#                     new_variation.save()
-#             messages.success(request, "Your inventory has been updated.")
-#             return redirect('product_list')
-#             # return HttpResponseRedirect(reverse('product_slug', kwargs={'product_slug': 'product_slug'}))
-
-#     template_name = 'catalog/variation_list.html'
-#     context = {
-#         'variations': variations,
-#         'formset': formset,
-#     }
-
-#     return render(request, template_name, context)

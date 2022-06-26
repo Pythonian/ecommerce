@@ -33,7 +33,6 @@
 	
 	{% endfor %}
 
-	{# include "pagination.html" with page=posts #}
-	{# pagination_links request paginator #}
+	{% include "tags/pagination_links.html" with page=posts %}
 
  {% endblock %}
